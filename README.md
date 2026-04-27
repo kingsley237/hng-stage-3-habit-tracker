@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HNG Stage 3; Habit Tracker PWA
 
-## Getting Started
+A Progressive Web App for tracking daily habits with streaks, built with Next.js, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## Live Demo
 
-```bash
+https://hng-stage-3-habit-tracker.vercel.app
+
+## Setup
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm run test                # unit + integration (Vitest)
+npm run test:coverage       # with coverage report
+npm run test:e2e            # end-to-end (Playwright)
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/` : Next.js App Router pages: `/` splash, `/login`, `/signup`, `/dashboard`
+- `src/components/shared/` : SplashScreen
+- `src/components/auth/` : LoginForm, SignupForm
+- `src/components/habits/` : HabitForm, HabitCard, HabitList
+- `src/lib/` : slug, validators, streaks, habits, storage utilities
+- `src/types/` : auth and habit TypeScript types
+- `tests/unit/` : Vitest unit tests for all lib functions
+- `tests/integration/` : React Testing Library tests for form components
+- `tests/e2e/` : Playwright end-to-end tests
+- `public/manifest.json` : PWA manifest
+- `public/sw.js` : Service worker with cache-first strategy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Persistence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Three localStorage keys:
+- `habit-tracker-users` : registered user accounts
+- `habit-tracker-session` : current logged-in session
+- `habit-tracker-habits` : all habit data
 
-## Deploy on Vercel
+## Test Coverage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Lines: 93.18% (threshold: 80%)
+- All 62 tests pass across unit, integration, and e2e suites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Accessibility
+
+- Semantic HTML throughout
+- All form inputs have associated labels
+- Error messages use role="alert" for screen reader announcements
+- Keyboard navigable, visible focus rings on all interactive elements
+- PWA installable with manifest and service worker
